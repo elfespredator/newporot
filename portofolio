@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediaTek86 — Mission | Cédric Clérentin–Vieille</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d14;
+  --paper: #f7f5f0;
+  --cream: #edeae3;
+  --accent: #3b5bdb;
+  --accent-light: #dde3ff;
+  --green: #2f9e44;
+  --green-light: #d3f9d8;
+  --amber: #e67700;
+  --amber-light: #fff3bf;
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --text: #1a1a2e;
+  --muted: #6b6b80;
+  --border: rgba(13,13,20,0.1);
+  --card: #ffffff;
+  --serif: 'Syne', sans-serif;
+  --body: 'Instrument Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;}
+.cursor-glow{width:400px;height:400px;background:radial-gradient(circle,rgba(59,91,219,0.07) 0%,transparent 70%);position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);border-radius:50%;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 3rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(247,245,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--serif);font-weight:800;font-size:1rem;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--accent);}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none;padding:.4rem .85rem;border-radius:100px;border:1px solid var(--border);transition:all .2s;}
+.nav-back:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent);}
+
+/* HERO */
+.mission-hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:6rem 4rem 4rem;gap:4rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(124,58,237,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(59,91,219,0.06) 0%,transparent 60%);}
+.hero-content{position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.75rem;color:var(--purple);letter-spacing:.08em;background:var(--purple-light);padding:.35rem 1rem;border-radius:100px;margin-bottom:1.75rem;animation:slideDown .6s ease both;}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;color:var(--ink);animation:slideUp .7s .1s ease both;}
+h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{margin:1.25rem 0 2rem;font-size:1.05rem;color:var(--muted);max-width:480px;animation:slideUp .7s .2s ease both;line-height:1.6;}
+.hero-cta{display:flex;gap:.75rem;flex-wrap:wrap;animation:slideUp .7s .3s ease both;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.5rem;border-radius:10px;font-family:var(--body);font-size:.9rem;font-weight:500;text-decoration:none;border:none;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);opacity:0;transition:opacity .2s;}
+.btn:hover::after{opacity:1;}
+.btn-primary{background:var(--accent);color:white;box-shadow:0 4px 20px rgba(59,91,219,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,91,219,.4);}
+.btn-ghost{background:var(--card);color:var(--text);border:1.5px solid var(--border);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+.btn-purple{background:var(--purple);color:white;box-shadow:0 4px 20px rgba(124,58,237,.3);}
+.btn-purple:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,58,237,.4);}
+
+/* CODE CARD */
+.hero-visual{position:relative;z-index:1;animation:float .8s .4s ease both;}
+.code-card{background:var(--ink);border-radius:20px;padding:2rem;box-shadow:0 30px 80px rgba(13,13,20,.25);overflow:hidden;position:relative;}
+.code-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--accent),var(--green));}
+.code-dots{display:flex;gap:6px;margin-bottom:1.25rem;}
+.code-dots span{width:10px;height:10px;border-radius:50%;}
+.code-dots span:nth-child(1){background:#ff5f57;}
+.code-dots span:nth-child(2){background:#febc2e;}
+.code-dots span:nth-child(3){background:#28c840;}
+.code-line{font-family:var(--mono);font-size:.82rem;line-height:1.9;display:block;}
+.c-comment{color:#636e7b;}.c-keyword{color:#c792ea;}.c-string{color:#c3e88d;}.c-func{color:#82aaff;}.c-var{color:#eeffff;}.c-op{color:#89ddff;}.c-class{color:#ffcb6b;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem;}
+.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1rem;text-align:center;}
+.stat-num{font-family:var(--serif);font-size:1.5rem;font-weight:800;color:white;display:block;}
+.stat-label{font-size:.72rem;color:#636e7b;font-family:var(--mono);}
+
+/* SECTIONS */
+.section{max-width:1000px;margin:0 auto;padding:6rem 2rem;}
+.section-sep{width:100%;height:1px;background:var(--border);}
+.tag{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.12em;margin-bottom:1rem;}
+.tag::before{content:'—';color:var(--accent);}
+h2{font-family:var(--serif);font-size:clamp(2rem,4vw,2.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--ink);margin-bottom:.5rem;}
+.section-lead{color:var(--muted);font-size:1rem;margin-bottom:3rem;max-width:560px;line-height:1.65;}
+
+/* CONTEXTE CARDS */
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem;}
+.ctx-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:1.75rem;transition:all .3s;}
+.ctx-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 40px rgba(59,91,219,.08);}
+.ctx-card.wide{grid-column:1/-1;}
+.ctx-card.purple:hover{border-color:var(--purple);}
+.card-icon{font-size:1.5rem;margin-bottom:.75rem;display:block;}
+.ctx-card h3{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.ctx-card p{color:var(--muted);font-size:.92rem;line-height:1.7;}
+
+/* ÉTAPES TIMELINE */
+.steps-timeline{position:relative;padding-left:2.5rem;}
+.steps-timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--purple),transparent);}
+.step-item{position:relative;margin-bottom:2.5rem;}
+.step-dot{position:absolute;left:-2.35rem;top:5px;width:14px;height:14px;border-radius:50%;background:var(--card);border:2.5px solid var(--accent);transition:all .3s;}
+.step-item:hover .step-dot{background:var(--accent);box-shadow:0 0 0 4px var(--accent-light);}
+.step-num{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.08em;margin-bottom:.3rem;}
+.step-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.25rem;}
+.step-desc{color:var(--muted);font-size:.9rem;line-height:1.6;}
+.step-badge{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;font-size:.75rem;font-family:var(--mono);padding:.25rem .7rem;border-radius:100px;}
+.badge-done{background:var(--green-light);color:var(--green);}
+.badge-wip{background:var(--accent-light);color:var(--accent);}
+.badge-todo{background:var(--amber-light);color:var(--amber);}
+
+/* CAS D'UTILISATION */
+.cu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.cu-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:1.25rem;transition:all .25s;position:relative;overflow:hidden;}
+.cu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.cu-card.cu-connect::before{background:var(--accent);}
+.cu-card.cu-personnel::before{background:var(--green);}
+.cu-card.cu-absence::before{background:var(--purple);}
+.cu-card:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(13,13,20,.08);}
+.cu-num{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.5rem;}
+.cu-card h4{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;}
+.cu-card p{color:var(--muted);font-size:.82rem;line-height:1.55;}
+
+/* ARCHI MVC */
+.archi-box{background:var(--ink);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.archi-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--accent),var(--green));}
+.archi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;align-items:center;}
+.archi-layer{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;text-align:center;}
+.archi-layer-name{font-family:var(--mono);font-size:.75rem;color:#82aaff;letter-spacing:.08em;margin-bottom:.4rem;}
+.archi-layer-files{font-size:.78rem;color:#636e7b;line-height:1.7;}
+.archi-arrow{text-align:center;color:#636e7b;font-size:1.2rem;}
+
+/* TECHNOLOGIES */
+.tech-wrap{display:flex;flex-wrap:wrap;gap:.75rem;}
+.tech-tag{display:flex;align-items:center;gap:.5rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:.5rem 1rem;font-size:.88rem;font-weight:500;color:var(--text);transition:all .2s;}
+.tech-tag:hover{border-color:var(--accent);background:var(--accent-light);color:var(--accent);transform:translateY(-2px);}
+.tech-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-cs{background:var(--purple);}
+.dot-db{background:var(--green);}
+.dot-tool{background:var(--accent);}
+
+/* CAPTURES */
+.screens-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.screen-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;}
+.screen-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(13,13,20,.1);border-color:var(--accent);}
+.screen-preview{background:linear-gradient(135deg,#f0f4ff 0%,#e8edff 100%);height:160px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;}
+.screen-preview::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(59,91,219,.08));}
+.screen-info{padding:1.25rem;}
+.screen-info h4{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;}
+.screen-info p{color:var(--muted);font-size:.83rem;line-height:1.55;}
+
+/* COMMITS */
+.commits-list{display:flex;flex-direction:column;gap:.75rem;}
+.commit-item{display:flex;align-items:flex-start;gap:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1rem 1.25rem;transition:all .2s;}
+.commit-item:hover{border-color:var(--accent);}
+.commit-hash{font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-light);padding:.2rem .6rem;border-radius:6px;flex-shrink:0;margin-top:2px;}
+.commit-msg{font-size:.9rem;color:var(--text);font-weight:500;}
+.commit-sub{font-size:.8rem;color:var(--muted);margin-top:.15rem;}
+
+/* LIENS */
+.links-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.link-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:1.75rem;text-decoration:none;display:block;transition:all .3s;position:relative;overflow:hidden;}
+.link-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.link-card.github::before{background:var(--ink);}
+.link-card.video::before{background:var(--purple);}
+.link-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(13,13,20,.1);}
+.link-card.github:hover{border-color:var(--ink);}
+.link-card.video:hover{border-color:var(--purple);}
+.link-icon{font-size:2rem;margin-bottom:.75rem;display:block;}
+.link-card h3{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;}
+.link-card p{color:var(--muted);font-size:.88rem;line-height:1.6;}
+.link-arrow{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;font-family:var(--mono);font-size:.78rem;color:var(--accent);}
+
+/* VIDEO */
+.video-wrapper{background:var(--ink);border-radius:20px;padding:2rem;position:relative;overflow:hidden;}
+.video-wrapper::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--accent));}
+.video-placeholder{background:rgba(255,255,255,.04);border:2px dashed rgba(255,255,255,.1);border-radius:14px;padding:4rem 2rem;text-align:center;}
+.video-placeholder p{color:#636e7b;font-family:var(--mono);font-size:.85rem;line-height:1.8;}
+.video-placeholder strong{color:#82aaff;}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:.78rem;font-family:var(--mono);border-top:1px solid var(--border);}
+
+/* ANIMATIONS */
+@keyframes slideDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:none;}}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes float{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s;}
+.reveal.v{opacity:1;transform:none;}
+.reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}.reveal-d3{transition-delay:.3s;}
+
+@media(max-width:768px){
+  .mission-hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem;}
+  .hero-visual{display:none;}
+  .ctx-grid,.links-grid,.screens-grid{grid-template-columns:1fr;}
+  .ctx-card.wide{grid-column:1;}
+  .cu-grid{grid-template-columns:1fr 1fr;}
+  .archi-grid{grid-template-columns:1fr;}
+  .archi-arrow{transform:rotate(90deg);}
+  nav{padding:0 1.5rem;}
+  .section{padding:4rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+<div class="cursor-glow" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">ccv<span>.</span>dev</a>
+  <a href="index.html#realisations" class="nav-back">← Retour au portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="mission-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Atelier 2 · BTS SIO SLAM · 2025–2026</div>
+    <h1>Mission<br><em>MediaTek86</em></h1>
+    <p class="hero-sub">Développement d'une application de bureau C# Windows Forms pour gérer le personnel et les absences du réseau de médiathèques de la Vienne.</p>
+    <div class="hero-cta">
+      <a href="https://github.com/tonpseudo/MediaTek86" target="_blank" class="btn btn-primary">Voir sur GitHub →</a>
+      <a href="#demo" class="btn btn-ghost">📹 Voir la démo</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="code-card">
+      <div class="code-dots"><span></span><span></span><span></span></div>
+      <span class="code-line c-comment">// MediaTek86 — BddManager.cs</span>
+      <span class="code-line"><span class="c-keyword">public class</span> <span class="c-class">BddManager</span></span>
+      <span class="code-line">{</span>
+      <span class="code-line">&nbsp;&nbsp;<span class="c-keyword">private static</span> <span class="c-class">BddManager</span> <span class="c-var">instance</span>;</span>
+      <span class="code-line">&nbsp;</span>
+      <span class="code-line">&nbsp;&nbsp;<span class="c-keyword">public static</span> <span class="c-class">BddManager</span> <span class="c-func">GetInstance</span>()</span>
+      <span class="code-line">&nbsp;&nbsp;{</span>
+      <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">if</span> (<span class="c-var">instance</span> <span class="c-op">==</span> <span class="c-keyword">null</span>)</span>
+      <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-var">instance</span> <span class="c-op">=</span> <span class="c-keyword">new</span> <span class="c-func">BddManager</span>();</span>
+      <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">return</span> <span class="c-var">instance</span>;</span>
+      <span class="code-line">&nbsp;&nbsp;}</span>
+      <span class="code-line">}</span>
+      <div class="hero-stats">
+        <div class="stat-card"><span class="stat-num">8</span><span class="stat-label">cas d'usage</span></div>
+        <div class="stat-card"><span class="stat-num">MVC</span><span class="stat-label">architecture</span></div>
+        <div class="stat-card"><span class="stat-num">C#</span><span class="stat-label">langage</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- CONTEXTE -->
+<section><div class="section">
+  <div class="tag">01 — CONTEXTE</div>
+  <h2>La mission</h2>
+  <p class="section-lead">Développé pour l'ESN InfoTech Services 86, dans le cadre d'un marché remporté auprès du réseau MediaTek86.</p>
+  <div class="ctx-grid">
+    <div class="ctx-card reveal">
+      <span class="card-icon">🏛️</span>
+      <h3>Le client — MediaTek86</h3>
+      <p>Réseau qui fédère les médiathèques de la Vienne. Gère les prêts de livres, DVD et CD et développe la médiathèque numérique pour l'ensemble du département.</p>
+    </div>
+    <div class="ctx-card reveal reveal-d1">
+      <span class="card-icon">🏢</span>
+      <h3>L'ESN — InfoTech Services 86</h3>
+      <p>Entreprise de Services Numériques spécialisée dans le développement d'applications de bureau, web et mobile. Intervient en tant que prestataire pour MediaTek86.</p>
+    </div>
+    <div class="ctx-card wide reveal reveal-d2">
+      <span class="card-icon">🎯</span>
+      <h3>La mission confiée</h3>
+      <p>En tant que technicien développeur junior, j'ai été chargé de développer une <strong>application de bureau monoposte</strong> permettant de gérer le personnel de chaque médiathèque, leur affectation à un service (administratif, médiation culturelle, prêt) et leurs absences. L'application est installée sur un poste du service administratif.</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- ÉTAPES -->
+<section><div class="section">
+  <div class="tag">02 — DÉROULEMENT</div>
+  <h2>Les étapes du projet</h2>
+  <p class="section-lead">6 étapes réalisées dans l'ordre, avec sauvegarde GitHub et mise à jour du kanban à chaque étape.</p>
+  <div class="steps-timeline">
+    <div class="step-item reveal">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 01</div>
+      <div class="step-title">Environnement & base de données</div>
+      <div class="step-desc">Installation de WampServer et Visual Studio 2022. Création de la base de données MySQL <code>mediatek86</code> avec 5 tables (responsable, service, motif, personnel, absence). Alimentation avec des données de test.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+    <div class="step-item reveal reveal-d1">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 02</div>
+      <div class="step-title">Structure MVC & vues</div>
+      <div class="step-desc">Création du projet Windows Forms .NET Framework. Organisation en packages MVC (vue, controller, model, dal, bddmanager). Développement du visuel des 3 formulaires. Création du dépôt GitHub et du kanban.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+    <div class="step-item reveal reveal-d2">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 03</div>
+      <div class="step-title">Modèle & connexion BDD</div>
+      <div class="step-desc">Installation du connecteur MySql.Data via NuGet. Développement de la classe BddManager (singleton). Création des classes métier (Personnel, Absence, Service, Motif) et de la couche DAL. Génération de la documentation technique XML.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 04</div>
+      <div class="step-title">Fonctionnalités (8 cas d'utilisation)</div>
+      <div class="step-desc">Développement complet des 8 cas d'utilisation : connexion sécurisée, CRUD personnel, gestion des absences avec validations (chevauchements, dates). Tests complets de toutes les fonctionnalités.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+    <div class="step-item reveal reveal-d1">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 05</div>
+      <div class="step-title">Documentation utilisateur vidéo</div>
+      <div class="step-desc">Création d'une vidéo de démonstration de 5 minutes présentant toutes les fonctionnalités de l'application avec explications orales.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+    <div class="step-item reveal reveal-d2">
+      <div class="step-dot"></div>
+      <div class="step-num">ÉTAPE 06</div>
+      <div class="step-title">Déploiement, README & portfolio</div>
+      <div class="step-desc">Création de l'installeur MSI via Visual Studio Installer Projects. Génération du script SQL complet. Rédaction du README. Création de cette page portfolio.</div>
+      <span class="step-badge badge-done">✓ Terminé</span>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- CAS D'UTILISATION -->
+<section><div class="section">
+  <div class="tag">03 — FONCTIONNALITÉS</div>
+  <h2>Cas d'utilisation</h2>
+  <p class="section-lead">8 cas d'utilisation implémentés, tous accessibles après connexion du responsable.</p>
+  <div class="cu-grid">
+    <div class="cu-card cu-connect reveal">
+      <div class="cu-num">CU · 01</div>
+      <h4>Se connecter</h4>
+      <p>Authentification par login + mot de passe hashé SHA2(256).</p>
+    </div>
+    <div class="cu-card cu-personnel reveal reveal-d1">
+      <div class="cu-num">CU · 02</div>
+      <h4>Ajouter un personnel</h4>
+      <p>Saisie nom, prénom, tél, mail et service d'affectation.</p>
+    </div>
+    <div class="cu-card cu-personnel reveal reveal-d2">
+      <div class="cu-num">CU · 03</div>
+      <h4>Modifier un personnel</h4>
+      <p>Modification des informations avec confirmation.</p>
+    </div>
+    <div class="cu-card cu-personnel reveal reveal-d3">
+      <div class="cu-num">CU · 04</div>
+      <h4>Supprimer un personnel</h4>
+      <p>Suppression avec boîte de dialogue de confirmation.</p>
+    </div>
+    <div class="cu-card cu-absence reveal">
+      <div class="cu-num">CU · 05</div>
+      <h4>Afficher les absences</h4>
+      <p>Liste des absences d'un personnel, triées par date décroissante.</p>
+    </div>
+    <div class="cu-card cu-absence reveal reveal-d1">
+      <div class="cu-num">CU · 06</div>
+      <h4>Ajouter une absence</h4>
+      <p>Sélection date début/fin + motif. Contrôle des chevauchements.</p>
+    </div>
+    <div class="cu-card cu-absence reveal reveal-d2">
+      <div class="cu-num">CU · 07</div>
+      <h4>Supprimer une absence</h4>
+      <p>Suppression d'une absence avec confirmation.</p>
+    </div>
+    <div class="cu-card cu-absence reveal reveal-d3">
+      <div class="cu-num">CU · 08</div>
+      <h4>Modifier une absence</h4>
+      <p>Modification avec mêmes contrôles que l'ajout.</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- ARCHITECTURE -->
+<section><div class="section">
+  <div class="tag">04 — ARCHITECTURE</div>
+  <h2>Structure MVC</h2>
+  <p class="section-lead">Projet organisé en 5 packages respectant le pattern Modèle-Vue-Contrôleur.</p>
+  <div class="archi-box reveal">
+    <div class="archi-grid">
+      <div class="archi-layer">
+        <div class="archi-layer-name">VUE</div>
+        <div class="archi-layer-files">FrmConnexion<br>FrmPersonnel<br>FrmAbsences</div>
+      </div>
+      <div class="archi-arrow">→</div>
+      <div class="archi-layer">
+        <div class="archi-layer-name">CONTROLLER</div>
+        <div class="archi-layer-files">PersonnelController</div>
+      </div>
+      <div class="archi-arrow">→</div>
+      <div class="archi-layer">
+        <div class="archi-layer-name">DAL</div>
+        <div class="archi-layer-files">PersonnelDal</div>
+      </div>
+    </div>
+    <br>
+    <div class="archi-grid" style="grid-template-columns:1fr 1fr;margin-top:.5rem;">
+      <div class="archi-layer">
+        <div class="archi-layer-name">MODEL</div>
+        <div class="archi-layer-files">Personnel · Absence<br>Service · Motif</div>
+      </div>
+      <div class="archi-layer">
+        <div class="archi-layer-name">BDDMANAGER</div>
+        <div class="archi-layer-files">BddManager (Singleton)<br>MySQL · ReqSelect · ReqUpdate</div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="tag">Technologies utilisées</div>
+  <div class="tech-wrap reveal">
+    <div class="tech-tag"><span class="tech-dot dot-cs"></span>C# .NET Framework</div>
+    <div class="tech-tag"><span class="tech-dot dot-cs"></span>Windows Forms</div>
+    <div class="tech-tag"><span class="tech-dot dot-cs"></span>Visual Studio 2022</div>
+    <div class="tech-tag"><span class="tech-dot dot-db"></span>MySQL / WampServer</div>
+    <div class="tech-tag"><span class="tech-dot dot-db"></span>MySql.Data (NuGet)</div>
+    <div class="tech-tag"><span class="tech-dot dot-db"></span>phpMyAdmin</div>
+    <div class="tech-tag"><span class="tech-dot dot-tool"></span>GitHub</div>
+    <div class="tech-tag"><span class="tech-dot dot-tool"></span>Kanban GitHub Projects</div>
+    <div class="tech-dot dot-tool" style="display:none"></div>
+    <div class="tech-tag"><span class="tech-dot dot-tool"></span>SHA2(256) — hashage</div>
+    <div class="tech-tag"><span class="tech-dot dot-tool"></span>Pattern Singleton</div>
+    <div class="tech-tag"><span class="tech-dot dot-tool"></span>Architecture MVC</div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- INTERFACES -->
+<section><div class="section">
+  <div class="tag">05 — INTERFACES</div>
+  <h2>Les formulaires</h2>
+  <p class="section-lead">3 formulaires Windows Forms développés pour couvrir tous les cas d'utilisation.</p>
+  <div class="screens-grid">
+    <div class="screen-card reveal">
+      <div class="screen-preview">🔐</div>
+      <div class="screen-info">
+        <h4>FrmConnexion</h4>
+        <p>Authentification du responsable. Champs login et mot de passe (masqué). Hashage SHA2 côté SQL.</p>
+      </div>
+    </div>
+    <div class="screen-card reveal reveal-d1">
+      <div class="screen-preview" style="background:linear-gradient(135deg,#f0fff4,#d3f9d8);">👥</div>
+      <div class="screen-info">
+        <h4>FrmPersonnel</h4>
+        <p>Liste du personnel avec DataGridView. Panneau de saisie extensible pour ajout/modification. Boutons CRUD + accès absences.</p>
+      </div>
+    </div>
+    <div class="screen-card reveal reveal-d2">
+      <div class="screen-preview" style="background:linear-gradient(135deg,#f5f0ff,#ede9fe);">📅</div>
+      <div class="screen-info">
+        <h4>FrmAbsences</h4>
+        <p>Absences triées par date décroissante. DateTimePicker pour saisie. Contrôle de chevauchement et cohérence des dates.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- COMMITS -->
+<section><div class="section">
+  <div class="tag">06 — HISTORIQUE GIT</div>
+  <h2>Détail des commits</h2>
+  <p class="section-lead">Sauvegarde régulière avec messages explicites à chaque étape terminée.</p>
+  <div class="commits-list">
+    <div class="commit-item reveal"><span class="commit-hash">init</span><div><div class="commit-msg">Structure initiale MVC du projet</div><div class="commit-sub">Création des dossiers vue, controller, model, dal, bddmanager</div></div></div>
+    <div class="commit-item reveal reveal-d1"><span class="commit-hash">vue</span><div><div class="commit-msg">Visuel des 3 vues terminé</div><div class="commit-sub">FrmConnexion, FrmPersonnel, FrmAbsences codés</div></div></div>
+    <div class="commit-item reveal reveal-d2"><span class="commit-hash">model</span><div><div class="commit-msg">Modèle et DAL créés</div><div class="commit-sub">Classes Personnel, Absence, Service, Motif + PersonnelDal</div></div></div>
+    <div class="commit-item reveal"><span class="commit-hash">bdd</span><div><div class="commit-msg">BddManager et connecteur MySQL ajoutés</div><div class="commit-sub">Pattern Singleton, ReqSelect et ReqUpdate</div></div></div>
+    <div class="commit-item reveal reveal-d1"><span class="commit-hash">ctrl</span><div><div class="commit-msg">Contrôleur créé</div><div class="commit-sub">PersonnelController — lien vues ↔ DAL</div></div></div>
+    <div class="commit-item reveal reveal-d2"><span class="commit-hash">cu1</span><div><div class="commit-msg">CU1 — Connexion fonctionnelle</div><div class="commit-sub">Vérification SHA2 en BDD, ouverture FrmPersonnel</div></div></div>
+    <div class="commit-item reveal"><span class="commit-hash">cu234</span><div><div class="commit-msg">CU2/3/4 — Gestion du personnel fonctionnelle</div><div class="commit-sub">Ajout, modification, suppression avec confirmation</div></div></div>
+    <div class="commit-item reveal reveal-d1"><span class="commit-hash">cu5678</span><div><div class="commit-msg">CU5/6/7/8 — Gestion des absences fonctionnelle</div><div class="commit-sub">CRUD absences + contrôle chevauchements + tri chronologique</div></div></div>
+    <div class="commit-item reveal reveal-d2"><span class="commit-hash">sql</span><div><div class="commit-msg">Script SQL complet ajouté</div><div class="commit-sub">CREATE TABLE + INSERT + utilisateur userMediatek</div></div></div>
+    <div class="commit-item reveal"><span class="commit-hash">final</span><div><div class="commit-msg">Installeur MSI, README et documentation générés</div><div class="commit-sub">Étape 6 terminée — projet finalisé</div></div></div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- DEMO VIDEO -->
+<section id="demo"><div class="section">
+  <div class="tag">07 — DÉMONSTRATION</div>
+  <h2>Vidéo de démonstration</h2>
+  <p class="section-lead">Présentation complète de toutes les fonctionnalités de l'application (5 minutes).</p>
+  <div class="video-wrapper reveal">
+    <div class="video-placeholder">
+      <!-- Remplacer par une balise <iframe> YouTube ou <video> quand la vidéo est prête -->
+      <!-- Exemple YouTube : <iframe width="100%" height="450" src="https://www.youtube.com/embed/VOTRE_ID" frameborder="0" allowfullscreen style="border-radius:12px;"></iframe> -->
+      <p>📹 <strong>Vidéo à intégrer</strong><br><br>
+      Pour ajouter votre vidéo ici :<br>
+      1. Uploadez la vidéo sur YouTube<br>
+      2. Remplacez ce bloc par : <strong>&lt;iframe src="https://youtube.com/embed/VOTRE_ID"&gt;</strong><br>
+      3. Ou utilisez une balise &lt;video&gt; si hébergé localement</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-sep"></div>
+
+<!-- LIENS -->
+<section><div class="section">
+  <div class="tag">08 — RESSOURCES</div>
+  <h2>Liens du projet</h2>
+  <p class="section-lead">Accédez au code source et à la documentation.</p>
+  <div class="links-grid">
+    <a href="https://github.com/tonpseudo/MediaTek86" target="_blank" class="link-card github reveal">
+      <span class="link-icon">⚡</span>
+      <h3>Dépôt GitHub</h3>
+      <p>Code source complet, script SQL, documentation technique XML et installeur MSI.</p>
+      <span class="link-arrow">Voir le dépôt →</span>
+    </a>
+    <a href="#demo" class="link-card video reveal reveal-d1">
+      <span class="link-icon">🎬</span>
+      <h3>Vidéo de démonstration</h3>
+      <p>Démonstration complète des 8 cas d'utilisation avec explications orales (5 minutes).</p>
+      <span class="link-arrow">Voir la vidéo →</span>
+    </a>
+  </div>
+</div></section>
+
+<footer>© 2025–2026 Cédric Clérentin–Vieille · Mission MediaTek86 · BTS SIO SLAM</footer>
+
+<script>
+const glow = document.getElementById('glow');
+document.addEventListener('mousemove', e => {
+  glow.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(13,13,20,.08)' : '';
+}, { passive: true });
+</script>
+</body>
+</html>
